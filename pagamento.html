@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pagamento</title>
+</head>
+<body>
+  <h1>Assinar Plano Profissional</h1>
+  <input type="email" id="email" placeholder="Seu email" required />
+  <button onclick="pagar()">Pagar</button>
+
+  <script>
+    async function pagar() {
+      const email = document.getElementById("email").value;
+
+      const res = await fetch("http://localhost:8080/criar-checkout", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ email })
+      });
+
+      const url = await res.text();
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>

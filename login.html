@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <style>
+    body { text-align: center; margin: 50px; font-family: sans-serif; }
+    input { margin: 10px; padding: 8px; width: 250px; }
+    button { padding: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Login</h1>
+  <form id="login-form">
+    <input type="email" name="email" placeholder="Email" required><br>
+    <input type="password" name="senha" placeholder="Senha" required><br>
+    <button type="submit">Entrar</button>
+  </form>
+
+  <h2>Ou cadastre-se</h2>
+  <form id="cadastro-form">
+    <input type="email" name="email" placeholder="Novo Email" required><br>
+    <input type="password" name="senha" placeholder="Nova Senha" required><br>
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <script>
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const senha = e.target.senha.value;
+
+      const res = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ email, senha })
+      });
+      const txt = await res.text();
+      alert(txt);
+      if (txt === "Login OK!") {
+        // em breve: redirecionar para o painel
+      }
+    });
+
+    document.getElementById("cadastro-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const senha = e.target.senha.value;
+
+      const res = await fetch("http://localhost:8080/cadastrar", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ email, senha })
+      });
+      const txt = await res.text();
+      alert(txt);
+    });
+  </script>
+</body>
+</html>
