@@ -1,31 +1,82 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Crie seu site gratuito</title>
+  <meta charset="UTF-8">
+  <title>Crie Seu Site Profissional | SeuSitePro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Fonte moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Typed.js -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 </head>
 <body>
-  <h1>Crie seu site gratuito</h1>
-  <form id="site-form">
-    <input type="text" name="nome" placeholder="Seu nome" required><br>
-    <input type="text" name="profissao" placeholder="Profissão" required><br>
-    <input type="text" name="descricao" placeholder="Descrição do serviço" required><br>
-    <input type="text" name="instagram" placeholder="@instagram"><br>
-    <input type="text" name="whatsapp" placeholder="WhatsApp com DDD"><br>
 
-    <select name="template" required>
-  <option value="">Escolha um modelo</option>
-  <option value="minimal">Minimal</option>
-  <option value="moderno">Moderno</option>
-  <option value="elegante">Elegante</option>
-</select><br>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">SeuSitePro</div>
+        <div class="nav-links">
+          <button class="btn-login" onclick="location.href='login.html'">Login</button>
+          <button class="btn-signup" onclick="location.href='pagamento.html'">Assinar Plano</button>
+          <button id="theme-toggle" aria-label="Alternar tema">🌓</button>
+        </div>
+      </nav>
+    </div>
+  </header>
 
-    
-    <button type="submit">Gerar Site</button>
-  </form>
+  <section class="hero container">
+    <h1><span id="typed-text"></span></h1>
+    <p>Sites profissionais, elegantes e com suporte completo. Planos a partir de R$29/mês — crie o seu em minutos!</p>
+    <div class="cta-buttons">
+      <button class="btn-primary" onclick="location.href='pagamento.html'">Assinar Agora</button>
+      <button class="btn-secondary" onclick="location.href='pagamento.html'">Ver Planos</button>
+    </div>
+  </section>
+
+  <section class="features container">
+    <div class="grid">
+      <div class="feature-card fade-in">
+        <h3>Templates Modernos</h3>
+        <p>Designs minimalistas, elegantes ou arrojados, personalizáveis em poucos cliques.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <h3>Planos Acessíveis</h3>
+        <p>Escolha o plano ideal para você: mensal ou anual, sem surpresas.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <h3>Integrações</h3>
+        <p>Conecte Instagram, WhatsApp e outras ferramentas ao seu site.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <h3>Suporte Premium</h3>
+        <p>Atendimento dedicado para tirar dúvidas e orientar na criação.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div class="container">
+      <h2>Pronto para impulsionar seu negócio?</h2>
+      <button onclick="location.href='pagamento.html'">Assinar Plano Agora</button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> SeuSitePro. Todos os direitos reservados.
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+

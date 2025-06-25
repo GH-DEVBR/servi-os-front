@@ -1,27 +1,91 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Pagamento</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f0f2f5;
+    }
+    .container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+    }
+    .container input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    .container button {
+      width: 100%;
+      padding: 12px;
+      background: #28a745;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 6px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .container button:hover {
+      background: #218838;
+    }
+  </style>
 </head>
 <body>
-  <h1>Assinar Plano Profissional</h1>
-  <input type="email" id="email" placeholder="Seu email" required />
-  <button onclick="pagar()">Pagar</button>
+
+  <div class="container">
+    <h1>Assinar Plano Profissional</h1>
+    <input type="email" id="email" placeholder="Seu e-mail" required>
+    <button id="pay-btn">Pagar</button>
+  </div>
 
   <script>
-    async function pagar() {
-      const email = document.getElementById("email").value;
+    // aponte para o seu back-end
+    const API = "http://localhost:8080";
 
-      const res = await fetch("http://localhost:8080/criar-checkout", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ email })
-      });
-
-      const url = await res.text();
-      window.location.href = url;
-    }
+    document.getElementById("pay-btn").addEventListener("click", async () => {
+      const email = document.getElementById("email").value.trim();
+      if (!email) {
+        return alert("Digite um e-mail válido.");
+      }
+      try {
+        const res = await fetch(`${API}/criar-checkout`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        });
+        if (!res.ok) {
+          const txt = await res.text();
+          return alert("Erro ao iniciar pagamento: " + txt);
+        }
+        const url = await res.text();
+        // redireciona para o checkout Stripe
+        window.location.href = url;
+      } catch (err) {
+        alert("Erro inesperado: " + err.message);
+      }
+    });
   </script>
+
 </body>
 </html>
+
+
+
+

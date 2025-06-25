@@ -4,62 +4,59 @@
   <meta charset="UTF-8">
   <title>Painel do Usuário</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
-      margin: 0;
-    }
+    /* Ajustes locais para o painel */
+    body { padding-top: 80px; }
     .container {
-      max-width: 600px;
-      margin: auto;
       background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      max-width: 700px;
+      margin: auto;
     }
-    h1 {
-      text-align: center;
-    }
-    input, textarea, select, button {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    button {
-      background-color: #007bff;
-      color: white;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    .logout {
-      text-align: right;
-      margin-bottom: 10px;
-    }
+    .logout { text-align: right; margin-bottom: 10px; }
     .logout button {
-      width: auto;
-      padding: 5px 10px;
-      background: red;
+      padding: 6px 12px;
+      background: #dc3545;
+      color: #fff;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .site-card {
+      background: #f8f9fa;
+      border-left: 5px solid #007bff;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 6px;
+    }
+    .site-card a {
+      font-weight: bold;
+      color: #007bff;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logout">
-      <button onclick="logout()">Sair</button>
+
+  <header>
+    <div class="container">
+      <nav style="justify-content:flex-end;">
+        <button id="logout-btn">Sair</button>
+      </nav>
     </div>
-    <h1>Gerar Meu Site</h1>
+  </header>
+
+  <div class="container">
+    <h1>Bem-vindo ao seu Painel</h1>
+    <h2>Crie seu site</h2>
+
     <form id="site-form">
-      <input type="text" name="nome" placeholder="Seu nome" required />
-      <input type="text" name="profissao" placeholder="Profissão" required />
+      <input type="text" name="nome" placeholder="Seu nome" required>
+      <input type="text" name="profissao" placeholder="Profissão" required>
       <textarea name="descricao" placeholder="Sobre você..." required></textarea>
-      <input type="text" name="instagram" placeholder="Instagram" />
-      <input type="text" name="whatsapp" placeholder="WhatsApp" />
+      <input type="text" name="instagram" placeholder="Instagram">
+      <input type="text" name="whatsapp" placeholder="WhatsApp">
       <select name="template" required>
         <option value="">Escolha um template</option>
         <option value="template1">Template 1</option>
@@ -67,52 +64,17 @@
       </select>
       <button type="submit">Gerar Site</button>
     </form>
+
+    <h2>Meus Sites</h2>
+    <div id="lista-sites" style="min-height: 50px;"></div>
   </div>
 
-  <script>
-    document.getElementById("site-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const token = localStorage.getItem("token");
-      if (!token) {
-        alert("Você precisa estar logado para gerar o site.");
-        return;
-      }
-
-      const data = {
-        nome: e.target.nome.value,
-        profissao: e.target.profissao.value,
-        descricao: e.target.descricao.value,
-        instagram: e.target.instagram.value,
-        whatsapp: e.target.whatsapp.value,
-        email: prompt("Informe seu e-mail para vincular ao painel:"),
-        template: e.target.template.value
-      };
-
-      const resposta = await fetch("http://localhost:8080/gerar-site", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + token
-        },
-        body: JSON.stringify(data)
-      });
-
-      if (!resposta.ok) {
-        alert("Erro ao gerar site");
-        return;
-      }
-
-      const htmlGerado = await resposta.text();
-      const novaJanela = window.open("", "_blank");
-      novaJanela.document.write(htmlGerado);
-    });
-
-    function logout() {
-      localStorage.removeItem("token");
-      window.location.href = "login.html";
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
 
