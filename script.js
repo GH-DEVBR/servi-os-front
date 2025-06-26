@@ -1,4 +1,5 @@
-const API = "http://localhost:8080";
+const API = "https://exemplo-back.onrender.com";
+
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1) Toggle tema claro/escuro
